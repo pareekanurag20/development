@@ -13,6 +13,9 @@ import static org.hibernate.cfg.Environment.USER;
 
 import java.util.Properties;
 
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,8 +23,10 @@ import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jndi.JndiTemplate;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -63,6 +68,24 @@ public class HibernateAppConfig {
 
 	      return factoryBean;
 	   }
+	   
+	   
+	  /* @Bean
+	    public LocalContainerEntityManagerFactoryBean entityManagerFactory() 
+	      throws NamingException {
+	        LocalContainerEntityManagerFactoryBean em 
+	          = new LocalContainerEntityManagerFactoryBean();
+	        em.setDataSource(dataSource());
+	         
+	        // rest of entity manager configuration
+	        return em;
+	    }
+	 
+	    @Bean
+	    public DataSource dataSource() throws NamingException {
+	        return (DataSource) new JndiTemplate().lookup(env.getProperty("jdbc.url"));
+	    }*/
+	 
 
 	   @Bean
 	   public HibernateTransactionManager getTransactionManager() {

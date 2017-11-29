@@ -2,6 +2,8 @@ package spring.test.rest.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import spring.test.rest.service.UserService;
 
 @RestController
 public class SpringRestController {
+	
+	private static final Logger LOGGER= LoggerFactory.getLogger(SpringRestController.class);
 
 	@Autowired
 	private UserService userService;  //Service which will do all data retrieval/manipulation work
@@ -29,6 +33,7 @@ public class SpringRestController {
 	
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public ResponseEntity<List<UserDTO>> listAllUsers() {
+		LOGGER.debug("in listAllUser method");
 		List<UserDTO> users = userService.findAllUsers();
 		if(users.isEmpty()){
 			return new ResponseEntity<List<UserDTO>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
@@ -41,6 +46,7 @@ public class SpringRestController {
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UserDTO> getUser(@PathVariable("id") int id) {
+		LOGGER.debug("in getUser method for id [{}]"+id);
 		System.out.println("Fetching User with id " + id);
 		UserDTO user = userService.findById(id);
 		if (user == null) {
@@ -57,7 +63,7 @@ public class SpringRestController {
 	@RequestMapping(value = "/user", method = RequestMethod.POST)
 	public ResponseEntity<Void> createUser(@RequestBody UserDTO user, 	UriComponentsBuilder ucBuilder) {
 		System.out.println("Creating User " + user.getName());
-
+		LOGGER.debug("in createUser method");
 		if (userService.isUserExist(user)) {
 			System.out.println("A User with name " + user.getName() + " already exist");
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
@@ -76,7 +82,7 @@ public class SpringRestController {
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<UserDTO> updateUser(@PathVariable("id") int id, @RequestBody UserDTO user) {
 		System.out.println("Updating User " + id);
-		
+		LOGGER.debug("in updateUser method for id [{}]",id);
 		UserDTO currentUser = userService.findById(id);
 		
 		if (currentUser==null) {
@@ -96,6 +102,7 @@ public class SpringRestController {
 	
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<UserDTO> deleteUser(@PathVariable("id") int id) {
+		LOGGER.debug("in deleteUser method for id [{}]",id);
 		System.out.println("Fetching & Deleting User with id " + id);
 
 		UserDTO user = userService.findById(id);
