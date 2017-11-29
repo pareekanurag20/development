@@ -16,8 +16,8 @@ public class PhoneNumber {
 	
 	private String phoneType;
 	
-	@ManyToOne(cascade = {CascadeType.REFRESH})
-	@JoinColumn(name="user_id", nullable=true)
+	@ManyToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="user_id")
 	private UserEntity userEntity;
 
 	public String getPhoneNumber() {

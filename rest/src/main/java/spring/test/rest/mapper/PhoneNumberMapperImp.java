@@ -24,7 +24,7 @@ public class PhoneNumberMapperImp implements PhoneNumberMapper {
 		phoneNumber.setPhoneNumber(phoneNumberDTO.getPhoneNumber());
 		phoneNumber.setPhoneType(phoneNumberDTO.getPhoneType());
 		phoneNumber.setUserEntity(userEntity);
-		return null;
+		return phoneNumber;
 	}
 
 	public List<PhoneNumber> convertToDaoPhoneNumbers(List<PhoneNumberDTO> phoneNumberDTOs,UserEntity userEntity) {

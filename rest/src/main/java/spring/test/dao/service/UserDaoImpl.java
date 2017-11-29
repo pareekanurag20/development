@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
 		Session session = this.sessionFactory.openSession();
 		try {
 			Transaction tx = session.beginTransaction();
-			session.persist(user);			
+			session.save(user);			
 			tx.commit();
 		}catch (Exception e) {
 			LOGGER.error("got error during the persist for user [{}] ",user,e);

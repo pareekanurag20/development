@@ -21,7 +21,7 @@ import javax.persistence.Table;
 public class UserEntity {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String name;
 	
@@ -29,7 +29,7 @@ public class UserEntity {
 	
 	private double salary;
 	
-	@OneToMany(mappedBy="userEntity", cascade = CascadeType.ALL,fetch=FetchType.EAGER,targetEntity=spring.test.dao.model.PhoneNumber.class)
+	@OneToMany(mappedBy="userEntity", cascade = CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<PhoneNumber> phoneNumbers;
 	
 	@ManyToOne
